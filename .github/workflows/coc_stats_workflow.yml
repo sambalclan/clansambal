@@ -71,16 +71,17 @@ jobs:
           path: data/
           retention-days: 30
 
-  # Optional: Notify via Discord/Slack jika ada error
-  notify-on-failure:
-    runs-on: ubuntu-latest
-    needs: fetch-stats
-    if: failure()
-    
-    steps:
-      - name: Notify Discord webhook
-        if: secrets.DISCORD_WEBHOOK_URL
-        uses: tsickert/discord-webhook@v1
-        with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "❌ CoC Stats Fetcher failed! Check workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+  # OPTIONAL: Notify via Discord jika ada error
+  # Uncomment section ini jika ingin Discord notifications
+  # notify-on-failure:
+  #   runs-on: ubuntu-latest
+  #   needs: fetch-stats
+  #   if: failure() && secrets.DISCORD_WEBHOOK_URL != ''
+  #   
+  #   steps:
+  #     - name: Notify Discord webhook
+  #       uses: tsickert/discord-webhook@v1
+  #       with:
+  #         webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+  #         content: "❌ CoC Stats Fetcher failed! Check workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+  
