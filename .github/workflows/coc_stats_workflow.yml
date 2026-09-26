@@ -1,0 +1,86 @@
+name: CoC Clan Stats Fetcher
+
+# Trigger: Setiap jam pada menit 0
+on:
+  schedule:
+    # Runs at minute 0 of every hour (00:00, 01:00, 02:00, etc UTC)
+    - cron: '0 * * * *'
+  
+  # Allow manual trigger dari Actions tab
+  workflow_dispatch:
+
+# Set permissions
+permissions:
+  contents: write
+
+jobs:
+  fetch-stats:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Pull full history untuk git operations
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Fetch CoC Clan Stats
+        env:
+          COC_API_TOKEN: ${{ secrets.COC_API_TOKEN }}
+          COC_CLAN_TAG: ${{ secrets.COC_CLAN_TAG }}
+          OUTPUT_JSON: 'data/coc_clan_stats.json'
+          OUTPUT_CSV: 'data/coc_clan_stats.csv'
+        run: |
+          # Create data directory jika belum ada
+          mkdir -p data
+          
+          # Run Python script
+          python scripts/coc_fetch_stats.py
+      
+      - name: Commit dan push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check apakah ada perubahan
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            echo "Changes detected, committing..."
+            git add data/coc_clan_stats.json data/coc_clan_stats.csv
+            git commit -m "chore: Update CoC clan stats - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+          fi
+      
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coc-stats-data
+          path: data/
+          retention-days: 30
+
+  # Optional: Notify via Discord/Slack jika ada error
+  notify-on-failure:
+    runs-on: ubuntu-latest
+    needs: fetch-stats
+    if: failure()
+    
+    steps:
+      - name: Notify Discord webhook
+        if: secrets.DISCORD_WEBHOOK_URL
+        uses: tsickert/discord-webhook@v1
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: "❌ CoC Stats Fetcher failed! Check workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
