@@ -5,7 +5,7 @@
 import { roleWeight, parseCoCDate } from './constants.js';
 import { 
     fetchClanData, 
-    fetchMembersIndex, 
+    fetchMembersIndex,  
 } from './members.js';
 import { 
     renderMembers,
