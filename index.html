@@ -7,44 +7,61 @@
     
     <!-- External Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="styleshet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="clan.css">
 </head>
 <body class="p-3 md:p-10 w-full">
-            <!-- penyembunyian) -->
+ <!-- Header Section -->
+        
+    <div class="w-full mb-6 flex flex-col items-center text-center">
+        <div id="headerContent" class="flex items-center gap-3 md:gap-4">
+            <img id="clanBadge" class="w-10 h-10 md:w-16 md:h-16 hidden" alt="Clan Badge">
+            <h1 id="pageTitle" class="text-2xl md:text-5xl font-bold gold medieval uppercase tracking-tighter">Sambal Balado</h1>
+        </div>
+        <div class="h-1 w-40 bg-[#666B96] mt-2 rounded-full"></div>
+    </div>
+    
+            <!-- Section: About / Statistik (Disembunyikan secara bawaan) -->
         <div id="section-about" class="w-full hidden-section">
             <div id="aboutContent"></div>
         </div>
     </div>
-    
 
     <!-- Floating Navigation Bar -->
     <nav class="floating-nav">
-        <button id="tab-about" class="nav-btn">Dashboard</button>
+        <button id="tab-about" class="nav-btn active">Dashboard</button>
         <button id="tab-members" class="nav-btn">Members</button>
-        <button id="tab-war" class="nav-btn">WarLog</button>
+        <button id="tab-war" class="nav-btn">Attack</button>
+        <button id="tab-raid" class="nav-btn">Support</button>
     </nav>
     
     <div class="w-full">
+        <!-- Section: About -->
+        <div id="section-about" class="lg:col-span-12 hidden-section">
+            <div id="aboutContent"></div>
+        </div>
 
-        <!-- penyembunyian -->
+        <!-- Section: Members -->
         <div id="section-members" class="lg:col-span-12 hidden-section">
             <div class="panel p-3 md:p-6">
-                
                 <!-- Shared Members Header -->
                 <div class="flex flex-col lg:flex-row lg:flex-wrap justify-between items-start lg:items-center gap-y-4 mb-6 px-1">
                     <div class="flex items-center gap-3">
-                        <h2 id="memberTitle" class="medieval text-base md:text-lg font-bold uppercase">Member Clan</h2>
-                        <span id="memberCount" class="text-[12px] md:text-[10px] font-mono text-gray-500">0 / 50</span>
+                        <h2 id="memberTitle" class="medieval text-base md:text-lg font-bold uppercase">Members</h2>
+                        <span id="memberCount" class="text-[9px] md:text-[10px] font-mono text-gray-500">0 / 50</span>
                     </div>                    
                     <!-- Sub-tabs Row (Mobile: 2nd, Desktop: bottom) -->
 <div class="w-full flex justify-center order-2 lg:order-3 lg:mt-2">
                 <div class="flex items-center gap-1.5 p-1.5 bg-[#1a1a1a] rounded-full border border-gray-800 w-fit mx-auto">
                             <button data-role="all" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">All</button>
                             <button data-role="leader" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Leader</button>
-                            <button data-role="coLeader" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Colead</button>
+                            <button data-role="coLeader" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Co-Leader</button>
                             <button data-role="admin" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Elder</button>
                             <button data-role="member" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Member</button>
                         </div>
@@ -52,6 +69,10 @@
 
                     <!-- Header Controls (Mobile: 3rd, Desktop: top-right) -->
                     <div class="flex flex-row items-end gap-2 lg:gap-4 lg:ml-auto order-3 lg:order-2">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-[9px] font-bold text-gray-500 uppercase pl-1">Date</span>
+                            <input type="text" id="memberDate" class="control-base w-24 sm:w-32 font-mono text-center" placeholder="Select...">
+                        </div>
                         <div class="flex flex-col gap-1">
                             <span class="text-[9px] font-bold text-gray-500 uppercase pl-1">Sort</span>
                             <select id="sortBy" class="control-base h-8 w-28 sm:min-w-[140px]">
@@ -70,6 +91,46 @@
                 <div id="memberList" class="space-y-2"></div>
             </div>
         </div>
+
+        <!-- Section: War -->
+        <div id="section-war" class="lg:col-span-12 hidden-section">
+            <div class="panel p-3 md:p-6">
+                <!-- Shared War Header -->
+                <div id="warMainHeader" class="flex flex-col lg:flex-row lg:flex-wrap justify-between items-start lg:items-center gap-y-4 mb-6 px-1">
+                    <div class="flex items-center gap-3">
+                        <h2 class="medieval text-base md:text-lg font-bold uppercase">Wars</h2>
+                        <span id="warCount" class="text-[9px] md:text-[10px] font-mono text-gray-500">0 / 0</span>
+                        <button onclick="window.syncData()" class="sync-btn text-gray-600 hover:text-gold transition-all" title="Sync Data">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                        </button>
+                    </div>
+
+                    <!-- Header Controls (Mobile: 3rd, Desktop: top-right) -->
+                    <div class="flex flex-row items-end gap-2 lg:gap-4 lg:ml-auto order-3 lg:order-2">
+                        <!-- Controls for History -->
+                        <div id="warHistoryControls" class="flex flex-row items-end gap-2 sm:gap-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[9px] font-bold text-gray-500 uppercase pl-1">Date Range</span>
+                                <div class="flex items-center gap-1">
+                                    <input type="text" id="warStartDate" class="control-base w-20 sm:w-32 font-mono text-center" placeholder="Start Date">
+                                    <span class="text-gray-600 text-[10px]">-</span>
+                                    <input type="text" id="warEndDate" class="control-base w-20 sm:w-32 font-mono text-center" placeholder="End Date">
+                                </div>
+                            </div>
+                            <button id="resetWarFilters" class="btn-reset h-8">Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- Sub-tabs Row (Mobile: 2nd, Desktop: bottom) -->
+                    <div class="w-full order-2 lg:order-3 lg:mt-2">
+                        <div class="flex items-center gap-2 p-1 bg-[#1a1a1a] rounded-lg border border-gray-800 w-fit">
+                            <button data-war-filter="all" class="sub-tab-btn active uppercase tracking-wider">All</button>
+                            <button data-war-filter="victory" class="sub-tab-btn uppercase tracking-wider">Victory</button>
+                            <button data-war-filter="loss" class="sub-tab-btn uppercase tracking-wider">Defeat</button>
+                            <button data-war-filter="draw" class="sub-tab-btn uppercase tracking-wider">Draw</button>
+                        </div>
+                    </div>
+                </div>
 
 
         <!-- Main Entry Point -->
