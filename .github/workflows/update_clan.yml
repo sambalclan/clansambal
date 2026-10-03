@@ -1,7 +1,7 @@
 name: Update Clan Data (Daily)
 on:
   schedule:
-    - cron: '0 20 * * *' # Berjalan setiap hari jam 8 malam (20:00) UTC
+    - cron: '0 15 * * *' # Berjalan setiap hari jam 10 malam WIB (15:00 UTC)
   workflow_dispatch:
 
 jobs:
