@@ -2,7 +2,7 @@ import requests
 import json
 import os
 from datetime import datetime
-from config import BASE_URL, CLAN_TAG, HEADERS
+from config.py import BASE_URL, CLAN_TAG, HEADERS
 
 def update_clan_data():
     os.makedirs('data/clan_stats', exist_ok=True)

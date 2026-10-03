@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TOKEN = os.getenv("COC_API_TOKEN")
-RAW_TAG = os.getenv("CLAN_TAG")
+TOKEN = os.getenv("TOKEN")
+RAW_TAG = os.getenv("TAG")
 
 if RAW_TAG is None:
     raise ValueError("ERROR: CLAN_TAG not found.")
