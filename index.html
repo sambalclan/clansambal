@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CoC War Stats</title>
+    
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="styleshet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="clan.css">
+</head>
+<body class="p-3 md:p-10 w-full">
+            <!-- penyembunyian) -->
+        <div id="section-about" class="w-full hidden-section">
+            <div id="aboutContent"></div>
+        </div>
+    </div>
+    
+
+    <!-- Floating Navigation Bar -->
+    <nav class="floating-nav">
+        <button id="tab-about" class="nav-btn">Dashboard</button>
+        <button id="tab-members" class="nav-btn">Members</button>
+        <button id="tab-war" class="nav-btn">WarLog</button>
+    </nav>
+    
+    <div class="w-full">
+
+        <!-- penyembunyian -->
+        <div id="section-members" class="lg:col-span-12 hidden-section">
+            <div class="panel p-3 md:p-6">
+                
+                <!-- Shared Members Header -->
+                <div class="flex flex-col lg:flex-row lg:flex-wrap justify-between items-start lg:items-center gap-y-4 mb-6 px-1">
+                    <div class="flex items-center gap-3">
+                        <h2 id="memberTitle" class="medieval text-base md:text-lg font-bold uppercase">Member Clan</h2>
+                        <span id="memberCount" class="text-[12px] md:text-[10px] font-mono text-gray-500">0 / 50</span>
+                    </div>                    
+                    <!-- Sub-tabs Row (Mobile: 2nd, Desktop: bottom) -->
+<div class="w-full flex justify-center order-2 lg:order-3 lg:mt-2">
+                <div class="flex items-center gap-1.5 p-1.5 bg-[#1a1a1a] rounded-full border border-gray-800 w-fit mx-auto">
+                            <button data-role="all" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">All</button>
+                            <button data-role="leader" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Leader</button>
+                            <button data-role="coLeader" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Colead</button>
+                            <button data-role="admin" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Elder</button>
+                            <button data-role="member" class="sub-tab-btn active uppercase tracking-wider rounded-full px-4 py-1.5">Member</button>
+                        </div>
+                    </div>
+
+                    <!-- Header Controls (Mobile: 3rd, Desktop: top-right) -->
+                    <div class="flex flex-row items-end gap-2 lg:gap-4 lg:ml-auto order-3 lg:order-2">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-[9px] font-bold text-gray-500 uppercase pl-1">Sort</span>
+                            <select id="sortBy" class="control-base h-8 w-28 sm:min-w-[140px]">
+                                <option value="league" selected>League + Trophies</option>
+                                <option value="trophies">Trophies Only</option>
+                                <option value="townHallLevel">Town Hall</option>
+                                <option value="expLevel">XP Level</option>
+                                <option value="donations">Donated</option>
+                                <option value="donationsReceived">Received</option>
+                                <option value="role">Role</option>
+                            </select>
+                        </div>
+                        <button id="resetMembersFilters" class="btn-reset h-8">Reset</button>
+                    </div>
+                </div>
+                <div id="memberList" class="space-y-2"></div>
+            </div>
+        </div>
+
+
+        <!-- Main Entry Point -->
+    <script type="module" src="java/app.js"></script>
+    
+</body>
+</html>
+
+    

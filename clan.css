@@ -1,0 +1,142 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: #131314; 
+    color: #BEC7D4; 
+    font-family: 'Inter', sans-serif; 
+    -webkit-tap-highlight-color: transparent; 
+}
+
+/* Hide Opsi */
+.hidden-section { 
+    display: none !important; 
+}
+/* Ui Trops */
+.control-base { 
+    background: #252525; 
+    border: 1px solid #333; 
+    border-radius: 6px; 
+    padding: 6px 10px; 
+    font-size: 10px; 
+    font-weight: 600; 
+    color: #ccc; 
+    outline: none; 
+    transition: all 0.2s; 
+    height: 32px; 
+    display: flex; 
+    align-items: center; 
+}
+/* Role */
+.btn-role { 
+    font-size: 9px; 
+    font-weight: bold; 
+    border: 1px solid #333; 
+    border-radius: 6px; 
+    padding: 0 10px; 
+    cursor: pointer; 
+    color: #777; 
+    background: #1e1e1e; 
+    height: 32px; 
+    transition: 0.2s; 
+    white-space: nowrap; 
+}
+.sub-tab-btn {
+    border-radius: 9999px; /* border */
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.5s ease;
+}
+
+.sub-tab-btn.active {
+    background-color: #323239;
+    color: #ffffff;
+    border-radius: 9999px;
+}
+
+/* Reset */
+.btn-reset {
+    font-size: 10px;
+    font-weight: bold;
+    color: #6b7280;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* navigasi melayang */
+.floating-nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    /* transparent */
+    background-color: rgba(35, 32, 46, 0.35); 
+    
+    /* blur */
+    backdrop-filter: blur(20px);
+    
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    max-width: 90vw;
+}
+
+/* Gaya tombol navigasi */
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: ##323239;
+    padding: 10px 18px;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+    background-color: #323239;
+    color: ;
+}
+
+.nav-btn:hover:not(.active) {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 600px) {
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    /* Town Hall icon scaling */
+.th-icon { 
+    width: 36px; 
+    height: 36px; 
+    object-fit: contain; 
+}
+@media (min-width: 768px) { 
+    .th-icon { width: 66px; height: 66px; } 
+}
+
